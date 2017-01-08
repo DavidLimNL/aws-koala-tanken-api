@@ -2,6 +2,8 @@ package com.koala.tanken.api.database;
 
 import com.amazonaws.geo.GeoDataManager;
 import com.amazonaws.geo.GeoDataManagerConfiguration;
+import com.amazonaws.regions.Region;
+import com.amazonaws.regions.Regions;
 import com.amazonaws.services.dynamodbv2.AmazonDynamoDBClient;
 
 public class DatabaseClient {
@@ -10,7 +12,8 @@ public class DatabaseClient {
 
     static {
         amazonDynamoDBClient = new AmazonDynamoDBClient();
-        amazonDynamoDBClient.setEndpoint("http://localhost:8000");
+        amazonDynamoDBClient.setRegion(Region.getRegion(Regions.US_WEST_2));
+        //amazonDynamoDBClient.setEndpoint("http://localhost:8000");
     }
 
     public static GeoDataManager setConfiguration(String tableName) {
@@ -19,7 +22,8 @@ public class DatabaseClient {
                 .withRangeKeyAttributeName("stationId")
                 .withGeohashAttributeName("stationGeohash")
                 .withGeoJsonAttributeName("stationGeoJson")
-                .withGeohashIndexName("station-geohash-index");
+                .withGeohashIndexName("station-geohash-index")
+                .withHashKeyLength(6);
         return new GeoDataManager(config);
     }
 }

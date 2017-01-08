@@ -14,12 +14,13 @@ public class FuelStationsResourceTest {
         FuelStationsResource resource = new FuelStationsResource();
         Input input = new Input();
         input.setLocation("52.091167,4.342671");
-        input.setDistance("100");
+        input.setDistance("3");
 
         // execute
         String node = resource.handleRequest(input, null);
 
         // assert
+        System.out.println(node);
         Assert.assertNotNull(node);
     }
 }
